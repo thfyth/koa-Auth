@@ -16,8 +16,6 @@ app
   .use(function* () {
     this.body = "Invalid URL!!!";
   });
-// app.use(users.routes(), users.allowedMethods());
 
-app.listen(3001);
-console.log("启动成功,端口是3001");
-// app.use(users.routes(), users.allowedMethods());
+app.listen(3000);
+console.log("启动成功,端口是http://localhost:3000");

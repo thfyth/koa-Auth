@@ -1,4 +1,7 @@
-module.exports = (sequelize, { DataTypes, Model }) => {
+module.exports = (
+  sequelize,
+  { DataTypes, Model, UserCommon, Custom, CdValue }
+) => {
   class CdKey extends Model {}
   CdKey.init(
     {
@@ -44,5 +47,19 @@ module.exports = (sequelize, { DataTypes, Model }) => {
       modelName: "cdKey", // 我们需要选择模型名称
     }
   );
+  CdKey.Common = CdKey.belongsTo(UserCommon, {
+    foreignKey: "relevancyId",
+    as: "common",
+  });
+  // // 卡密关联用户
+  // CdKey.belongsTo(Custom, {
+  //   foreignKey: "userId",
+  //   as: "user",
+  // });
+  // // 卡密关联卡值类型
+  // CdKey.belongsTo(CdValue, {
+  //   foreignKey: "valueId",
+  //   as: "value",
+  // });
   return CdKey;
 };

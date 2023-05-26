@@ -12,6 +12,7 @@ module.exports = {
         userName: Joi.string().alphanum().min(3).max(30).required(),
         password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
         access_token: [Joi.string(), Joi.number()],
+        // 权限
         authority: Joi.string(),
         birth_year: Joi.number().integer().min(1900).max(2013),
         machineCode: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")),

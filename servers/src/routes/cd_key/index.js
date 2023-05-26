@@ -1,10 +1,10 @@
 const Router = require("@koa/router");
-const { createCdKey, batchCreateCdKey } = require("../../controller/cdKey");
+const { batchCreateCdKey } = require("../../controller/cdKey");
 
 let cdKey = new Router({
   prefix: "/cd-key",
 });
 
-cdKey.post("/add", createCdKey).get("/createKey", batchCreateCdKey);
+cdKey.get("/createKey", batchCreateCdKey);
 
 module.exports = cdKey;

@@ -27,15 +27,17 @@ module.exports = {
       );
       return;
     }
-    const common = await UserCommon.create({ machineCode, type: 1 });
-    await Custom.create({
-      userName,
-      password,
-      email,
-      authority,
-      level,
-      relevancyId: common.id,
-    });
+    await Custom.create(
+      {
+        userName,
+        password,
+        email,
+        authority,
+        level,
+        common: { machineCode, type: 1 },
+      },
+      { include: [{ association: Custom.Common }] }
+    );
     ctx.body = new global.info.Success(200, true);
   },
 
@@ -44,16 +46,19 @@ module.exports = {
     const res = await verifyLogin(ctx);
     if (res.status) {
       const token = await createToken(res.data);
-      ctx.body = new global.info.Success(200, {
+      const data = {
         ...res.data.dataValues,
         token,
-      });
+      };
+      delete data.password;
+      ctx.body = new global.info.Success(200, data);
     } else ctx.body = new global.info.ParameterException("", res.data);
   },
 
   // 获取用户信息
   async getUserInfo(ctx) {
     const { id } = ctx.params;
+    console.log(id);
     if (!id) {
       ctx.body = new global.info.ParameterException(
         null,

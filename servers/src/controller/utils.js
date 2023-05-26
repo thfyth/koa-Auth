@@ -29,11 +29,13 @@ module.exports = {
       // 是否注册
       const isRegister = await Custom.findOne({
         where: { userName },
+        include: ["common"],
       });
       if (!isRegister) return returnObj("用户不存在，请先注册！");
       // 密码验证
       const userVerify = bcrypt.compareSync(password, isRegister.password);
       if (!userVerify) return returnObj("密码错误！");
+      delete isRegister.password;
       return returnObj(isRegister, true);
     } catch (error) {
       return error;

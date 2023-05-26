@@ -1,6 +1,12 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require(`${global.src}/utils/sql`);
 
+// APP
+const AppManage = require("./Application")(sequelize, {
+  DataTypes,
+  Model,
+});
+
 // 卡密 用户公用属性
 const UserCommon = require("./User/UserCommon")(sequelize, {
   DataTypes,
@@ -11,12 +17,7 @@ const UserCommon = require("./User/UserCommon")(sequelize, {
 const Custom = require("./User/UserModel")(sequelize, {
   DataTypes,
   Model,
-});
-
-// 卡密
-const CdKey = require("./Card/CdKey")(sequelize, {
-  DataTypes,
-  Model,
+  UserCommon,
 });
 
 // 卡密数值
@@ -25,22 +26,23 @@ const CdValue = require("./Card/CdValue")(sequelize, {
   Model,
 });
 
-Custom.belongsTo(UserCommon, {
-  foreignKey: "relevancyId",
-  as: "common",
+// 卡密
+const CdKey = require("./Card/CdKey")(sequelize, {
+  DataTypes,
+  Model,
+  UserCommon,
+  Custom,
+  CdValue,
 });
-CdKey.belongsTo(UserCommon, {
-  foreignKey: "relevancyId",
-  as: "common",
+
+// 导入公用model
+const { AppAssoc, UserHandle } = require("./CommonModel")(sequelize, {
+  DataTypes,
+  Model,
+  Custom,
+  AppManage,
 });
-CdKey.belongsTo(Custom, {
-  foreignKey: "userId",
-  as: "user",
-});
-CdKey.belongsTo(CdValue, {
-  foreignKey: "valueId",
-  as: "value",
-});
+
 //   force: true,
 //   alter: true, alter: true, force: true
 sequelize.sync({ alter: true, force: true });
@@ -49,4 +51,7 @@ module.exports = {
   Custom,
   CdKey,
   CdValue,
+  AppAssoc,
+  UserHandle,
+  AppManage,
 };

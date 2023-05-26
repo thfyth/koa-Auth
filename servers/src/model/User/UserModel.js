@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-module.exports = (sequelize, { DataTypes, Model }) => {
+module.exports = (sequelize, { DataTypes, Model, UserCommon }) => {
   class Custom extends Model {}
 
   Custom.init(
@@ -32,7 +32,7 @@ module.exports = (sequelize, { DataTypes, Model }) => {
       email: {
         type: DataTypes.STRING,
         // unique: true,
-        comment: "用户游戏",
+        comment: "用户邮箱",
       },
       // 拥有权限管理
       authority: {
@@ -57,5 +57,9 @@ module.exports = (sequelize, { DataTypes, Model }) => {
       modelName: "custom", // 我们需要选择模型名称
     }
   );
+  Custom.Common = Custom.belongsTo(UserCommon, {
+    foreignKey: "relevancyId",
+    as: "common",
+  });
   return Custom;
 };

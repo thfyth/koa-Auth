@@ -26,6 +26,7 @@ const catchError = async (ctx, next) => {
     } else {
       ctx.body = {
         msg: "未知错误！",
+        code: 500,
         error_code: 9999,
         request: `${ctx.method} ${ctx.path}`,
       };
