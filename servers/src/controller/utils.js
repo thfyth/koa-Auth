@@ -4,7 +4,7 @@
 const bcrypt = require("bcryptjs");
 const dayjs = require("dayjs");
 
-const { UserCommon, Custom, CdKey } = require("../model");
+const { UserCommon, Custom, CdKey, Dictionary } = require("../model");
 function returnObj(data, status = false) {
   return {
     data,
@@ -37,6 +37,35 @@ module.exports = {
       if (!userVerify) return returnObj("密码错误！");
       delete isRegister.password;
       return returnObj(isRegister, true);
+    } catch (error) {
+      return error;
+    }
+  },
+  // 创建字典
+  async createDictionary(ctx) {
+    try {
+      const {
+        type,
+        key,
+        value,
+        append = "",
+        description = "",
+      } = ctx.request.body;
+      if (!type) {
+        throw new global.info.ParameterException(
+          "类型是必传项！",
+          null,
+          10001,
+          500
+        );
+      }
+      return await Dictionary.create({
+        type,
+        key,
+        value,
+        append,
+        description,
+      });
     } catch (error) {
       return error;
     }

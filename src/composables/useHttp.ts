@@ -1,9 +1,9 @@
 // const useConfig = useRuntimeConfig();
 
-const BASE_URL = "http://localhost:3000/";
+const BASE_URL = "http://localhost:3000/api/v1";
 
 // 请求方法封装
-$fetch.create({
+const fetch = $fetch.create({
   baseURL: BASE_URL,
   // 请求拦截
   onRequest({ request, options }) {
@@ -23,13 +23,13 @@ $fetch.create({
 export const useHttp = () => {
   return {
     get: (url: string, params?: object) => {
-      return $fetch(url, {
+      return fetch(url, {
         method: "GET",
         params,
       });
     },
     post: (url: string, body?: object) => {
-      return $fetch(url, {
+      return fetch(url, {
         method: "POST",
         body,
       });

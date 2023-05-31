@@ -44,6 +44,7 @@ module.exports = (
     {
       // 这是其他模型参数
       sequelize, // 我们需要传递连接实例
+      tableName: "auth_card_code",
       modelName: "cdKey", // 我们需要选择模型名称
     }
   );

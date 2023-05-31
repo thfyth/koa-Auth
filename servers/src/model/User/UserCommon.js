@@ -37,7 +37,7 @@ module.exports = (sequelize, { DataTypes, Model }) => {
       enable: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
-        comment: "是否禁用",
+        comment: "是否禁用 0 -禁用 1 -正常",
       },
       // 类型 0-用户 1-卡密
       type: {
@@ -83,6 +83,7 @@ module.exports = (sequelize, { DataTypes, Model }) => {
     {
       // 这是其他模型参数
       sequelize, // 我们需要传递连接实例
+      tableName: "auth_common_info",
       modelName: "common", // 我们需要选择模型名称
     }
   );

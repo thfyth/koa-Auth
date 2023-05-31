@@ -10,6 +10,9 @@ dependencies:
   '@pinia/nuxt':
     specifier: ^0.4.11
     version: 0.4.11(rollup@2.79.1)(typescript@5.0.4)(vue@3.3.4)
+  '@vee-validate/nuxt':
+    specifier: ^4.9.5
+    version: 4.9.5(rollup@2.79.1)(vue@3.3.4)
   bcryptjs:
     specifier: ^2.4.3
     version: 2.4.3
@@ -2571,6 +2574,18 @@ packages:
     transitivePeerDependencies:
       - rollup
     dev: true
+
+  /@vee-validate/nuxt@4.9.5(rollup@2.79.1)(vue@3.3.4):
+    resolution: {integrity: sha512-W+2nXe1NXc5ijUp7sSAYv3bGsfhHGjf2m1oTP2bm81cV7/kpokqVenEvwgnInBwRD/Eh7hGjbchUcpnKlPBRkQ==}
+    dependencies:
+      '@nuxt/kit': 3.5.1(rollup@2.79.1)
+      local-pkg: 0.4.3
+      vee-validate: 4.9.5(vue@3.3.4)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
+    dev: false
 
   /@vercel/nft@0.22.6:
     resolution: {integrity: sha512-gTsFnnT4mGxodr4AUlW3/urY+8JKKB452LwF3m477RFUJTAaDmcz2JqFuInzvdybYIeyIv1sSONEJxsxnbQ5JQ==}
@@ -9363,6 +9378,11 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
+  /type-fest@3.11.1:
+    resolution: {integrity: sha512-aCuRNRERRVh33lgQaJRlUxZqzfhzwTrsE98Mc3o3VXqmiaQdHacgUtJ0esp+7MvZ92qhtzKPeusaX6vIEcoreA==}
+    engines: {node: '>=14.16'}
+    dev: false
+
   /type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -9792,6 +9812,16 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /vee-validate@4.9.5(vue@3.3.4):
+    resolution: {integrity: sha512-BVhGHjD6lWdEltDg08+wN/oTtSEDJcpwpgb5IJVvTmzEU0Dunn3j/JwVfbM+WSLCj4SMxnfar59qLnDLyZpQWg==}
+    peerDependencies:
+      vue: ^3.3.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      type-fest: 3.11.1
+      vue: 3.3.4
     dev: false
 
   /vite-node@0.31.1(@types/node@18.0.0)(sass@1.62.1):

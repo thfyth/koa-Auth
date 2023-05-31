@@ -32,9 +32,11 @@ export default defineNuxtConfig({
     },
   },
   css: [
-    "primevue/resources/primevue.css",
+    "primevue/resources/primevue.min.css",
+    "primevue/resources/themes/lara-light-indigo/theme.css",
     "primeflex/primeflex.css",
     "primeicons/primeicons.css",
+    "prismjs/themes/prism-coy.css",
     "~/assets/styles/layout.scss",
   ],
 
@@ -48,6 +50,18 @@ export default defineNuxtConfig({
     "@nuxtjs/device",
     // "nuxt-typed-router",
     "~/modules/primevue",
+    [
+      "@vee-validate/nuxt",
+      {
+        autoImports: true,
+        componentNames: {
+          Form: "VeeForm",
+          Field: "VeeField",
+          FieldArray: "VeeFieldArray",
+          ErrorMessage: "VeeErrorMessage",
+        },
+      },
+    ],
   ],
 
   vite: {

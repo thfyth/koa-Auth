@@ -26,17 +26,17 @@ const CdValue = require("./Card/CdValue")(sequelize, {
   Model,
 });
 
-// 卡密
-const CdKey = require("./Card/CdKey")(sequelize, {
-  DataTypes,
-  Model,
-  UserCommon,
-  Custom,
-  CdValue,
-});
+// // 卡密
+// const CdKey = require("./Card/CdKey")(sequelize, {
+//   DataTypes,
+//   Model,
+//   UserCommon,
+//   Custom,
+//   CdValue,
+// });
 
 // 导入公用model
-const { AppAssoc, UserHandle } = require("./CommonModel")(sequelize, {
+const { AppAssoc, UserHandle, Dictionary } = require("./Current")(sequelize, {
   DataTypes,
   Model,
   Custom,
@@ -45,13 +45,14 @@ const { AppAssoc, UserHandle } = require("./CommonModel")(sequelize, {
 
 //   force: true,
 //   alter: true, alter: true, force: true
-sequelize.sync({ alter: true, force: true });
+sequelize.sync({});
 module.exports = {
   UserCommon,
   Custom,
   CdKey,
-  CdValue,
+  // CdValue,
   AppAssoc,
   UserHandle,
   AppManage,
+  Dictionary,
 };

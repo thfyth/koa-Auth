@@ -50,7 +50,7 @@ module.exports = {
         await next();
       } catch (err) {
         console.log(err);
-        ctx.body = new global.info.ParameterException(err.details);
+        ctx.body = new global.info.ParameterException(err.details[0]);
       }
     };
   },

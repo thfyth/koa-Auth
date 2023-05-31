@@ -32,6 +32,7 @@ module.exports = (sequelize, { DataTypes, Model }) => {
     {
       // 这是其他模型参数
       sequelize, // 我们需要传递连接实例
+      tableName: "auth_app_model",
       modelName: "appManage", // 我们需要选择模型名称
     }
   );

@@ -20,6 +20,7 @@ module.exports = (sequelize, { DataTypes, Model, Custom, AppManage }) => {
     {
       // 这是其他模型参数
       sequelize, // 我们需要传递连接实例
+      tableName: "auth_app_assoc",
       modelName: "appAssoc", // 我们需要选择模型名称
     }
   );
@@ -67,11 +68,64 @@ module.exports = (sequelize, { DataTypes, Model, Custom, AppManage }) => {
     {
       // 这是其他模型参数
       sequelize, // 我们需要传递连接实例
+      tableName: "auth_user_handle",
       modelName: "userHandle", // 我们需要选择模型名称
+    }
+  );
+  // 字典表
+  class Dictionary extends Model {}
+  // 字典表
+  Dictionary.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        unique: true,
+        // autoIncrement: true,
+        allowNull: false,
+      },
+      // 卡密类型 名称
+      type: {
+        type: DataTypes.STRING,
+        comment: "字典 名称",
+      },
+      // 卡密名称
+      key: {
+        type: DataTypes.STRING,
+        comment: "字典 名称",
+      },
+      // 字典 数值
+      value: {
+        type: DataTypes.INTEGER,
+        comment: "字典 数值",
+      },
+      // 附加项
+      append: {
+        type: DataTypes.STRING,
+        comment: "附加项",
+      },
+      // 字典备注
+      description: {
+        type: DataTypes.STRING,
+        comment: "字典备注",
+      },
+      status: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        comment: "卡值 状态,1-正常,0-非正常",
+      },
+    },
+    {
+      // 这是其他模型参数
+      sequelize, // 我们需要传递连接实例
+      tableName: "auth_dictionary",
+      modelName: "cdValue", // 我们需要选择模型名称
     }
   );
   return {
     AppAssoc,
     UserHandle,
+    Dictionary,
   };
 };

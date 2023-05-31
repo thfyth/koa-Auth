@@ -7,12 +7,11 @@ const catchError = async (ctx, next) => {
     console.log("错误");
     // 开发环境
     const isHttpException = true || error instanceof HttpException;
-    const isDev = true || global.config.environment === "dev";
+    const isDev = global.config.environment === "dev";
 
     if (isDev && !isHttpException) {
       throw error;
     }
-    console.log(error.data);
     // 生成环境
     if (isHttpException) {
       ctx.body = {
