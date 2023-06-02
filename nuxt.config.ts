@@ -43,6 +43,7 @@ export default defineNuxtConfig({
   modules: [
     // "nuxt-icon",
     "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
     "@unocss/nuxt",
     "@vueuse/nuxt",
     "@vite-pwa/nuxt",
@@ -63,7 +64,14 @@ export default defineNuxtConfig({
       },
     ],
   ],
-
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        strict: true,
+        types: ["@pinia/nuxt"],
+      },
+    },
+  },
   vite: {
     build: {
       sourcemap: false,

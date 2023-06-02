@@ -66,6 +66,9 @@ devDependencies:
   '@nuxtjs/device':
     specifier: ^3.1.0
     version: 3.1.0(rollup@2.79.1)
+  '@pinia-plugin-persistedstate/nuxt':
+    specifier: ^1.1.1
+    version: 1.1.1(@pinia/nuxt@0.4.11)(pinia@2.1.3)(rollup@2.79.1)
   '@types/lodash-es':
     specifier: ^4.17.7
     version: 4.17.7
@@ -1829,6 +1832,21 @@ packages:
       - supports-color
     dev: true
 
+  /@pinia-plugin-persistedstate/nuxt@1.1.1(@pinia/nuxt@0.4.11)(pinia@2.1.3)(rollup@2.79.1):
+    resolution: {integrity: sha512-b6ZNP3Re8COmfZEpj4KQmbp2TuDKrLggDFLZa8FiJF68xE/oCsPXIuXUvAt8E4ht/5sq4Z/grlA+iGXaI2aeKQ==}
+    peerDependencies:
+      '@pinia/nuxt': ^0.4.4
+    dependencies:
+      '@nuxt/kit': 3.5.1(rollup@2.79.1)
+      '@pinia/nuxt': 0.4.11(rollup@2.79.1)(typescript@5.0.4)(vue@3.3.4)
+      defu: 6.1.2
+      pinia-plugin-persistedstate: 3.1.0(pinia@2.1.3)
+    transitivePeerDependencies:
+      - pinia
+      - rollup
+      - supports-color
+    dev: true
+
   /@pinia/nuxt@0.4.11(rollup@2.79.1)(typescript@5.0.4)(vue@3.3.4):
     resolution: {integrity: sha512-bhuNFngJpmBCdAqWguezNJ/oJFR7wvKieqiZrmmdmPR07XjsidAw8RLXHMZE9kUm32M9E6T057OBbG/22jERTg==}
     dependencies:
@@ -1840,7 +1858,6 @@ packages:
       - supports-color
       - typescript
       - vue
-    dev: false
 
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
@@ -7620,6 +7637,14 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /pinia-plugin-persistedstate@3.1.0(pinia@2.1.3):
+    resolution: {integrity: sha512-8UN+vYMEPBdgNLwceY08mi5olI0wkYaEb8b6hD6xW7SnBRuPydWHlEhZvUWgNb/ibuf4PvufpvtS+dmhYjJQOw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.1.3(typescript@5.0.4)(vue@3.3.4)
+    dev: true
+
   /pinia@2.1.3(typescript@5.0.4)(vue@3.3.4):
     resolution: {integrity: sha512-XNA/z/ye4P5rU1pieVmh0g/hSuDO98/a5UC8oSP0DNdvt6YtetJNHTrXwpwsQuflkGT34qKxAEcp7lSxXNjf/A==}
     peerDependencies:
@@ -7636,7 +7661,6 @@ packages:
       typescript: 5.0.4
       vue: 3.3.4
       vue-demi: 0.14.5(vue@3.3.4)
-    dev: false
 
   /pkg-dir@3.0.0:
     resolution: {integrity: sha512-/E57AYkoeQ25qkxMj5PBOVgF8Kiu/h7cYS30Z5+R7WaiCCBfLq58ZI/dSeaEKb9WVJV5n/03QwrN3IeWIFllvw==}

@@ -50,6 +50,11 @@ module.exports = (sequelize, { DataTypes, Model }) => {
         defaultValue: "无",
         comment: "禁用理由",
       },
+      disableTime: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+        comment: "禁用结束日期",
+      },
       // 使用类型 0-正常使用 1 - 手动续费
       useType: {
         type: DataTypes.INTEGER,
@@ -62,22 +67,22 @@ module.exports = (sequelize, { DataTypes, Model }) => {
         defaultValue: 0,
         comment: "是否邀请注册",
       },
-      // 关联应用
-      relevanceApp: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-        comment: "关联应用",
-      },
       status: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
         comment: "卡值 状态,1-正常,0-非正常",
       },
-      // 创建人员
+      // 创建人员ID
       createUser: {
         type: DataTypes.UUID,
         defaultValue: "",
-        comment: "创建人员",
+        comment: "创建人员ID",
+      },
+      // 创建人员名称
+      createUserName: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+        comment: "创建人员名称",
       },
     },
     {

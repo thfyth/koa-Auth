@@ -16,7 +16,7 @@ let user = new Router({
 // 获取用户信息
 user
   // 获取用户信息
-  .get("/getUserInfo:id", getUserInfo)
+  .get("/getUserInfo:id", verifyToken(), getUserInfo)
   // 注册
   .post("/register", validUserInfo(), registerOrUpdate)
   // 登陆

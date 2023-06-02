@@ -26,6 +26,7 @@ module.exports = (sequelize, { DataTypes, Model, Custom, AppManage }) => {
   );
   // app 关联用户
   AppManage.belongsToMany(Custom, { through: AppAssoc });
+  Custom.belongsToMany(AppManage, { through: AppAssoc });
   //   Custom.belongsToMany(AppAssoc, { through: "UserApp" });
   // 操作日志管理
   class UserHandle extends Model {}
@@ -74,7 +75,6 @@ module.exports = (sequelize, { DataTypes, Model, Custom, AppManage }) => {
   );
   // 字典表
   class Dictionary extends Model {}
-  // 字典表
   Dictionary.init(
     {
       id: {
@@ -85,15 +85,10 @@ module.exports = (sequelize, { DataTypes, Model, Custom, AppManage }) => {
         // autoIncrement: true,
         allowNull: false,
       },
-      // 卡密类型 名称
-      type: {
+      // 字典key
+      label: {
         type: DataTypes.STRING,
-        comment: "字典 名称",
-      },
-      // 卡密名称
-      key: {
-        type: DataTypes.STRING,
-        comment: "字典 名称",
+        comment: "字典 key",
       },
       // 字典 数值
       value: {
@@ -113,19 +108,62 @@ module.exports = (sequelize, { DataTypes, Model, Custom, AppManage }) => {
       status: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
-        comment: "卡值 状态,1-正常,0-非正常",
+        comment: "字典 状态,1-正常,0-非正常",
       },
     },
     {
       // 这是其他模型参数
       sequelize, // 我们需要传递连接实例
       tableName: "auth_dictionary",
-      modelName: "cdValue", // 我们需要选择模型名称
+      modelName: "dictionary", // 我们需要选择模型名称
     }
   );
+  // 字典类型
+  class DictionaryType extends Model {}
+  DictionaryType.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        unique: true,
+        // autoIncrement: true,
+        allowNull: false,
+      },
+      // 字典类型 名称
+      title: {
+        type: DataTypes.STRING,
+        comment: "字典 名称",
+      },
+      // 字典类型备注
+      description: {
+        type: DataTypes.STRING,
+        comment: "字典类型备注",
+      },
+      status: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        comment: "类型 状态,1-正常,0-非正常",
+      },
+    },
+    {
+      // 这是其他模型参数
+      sequelize, // 我们需要传递连接实例
+      tableName: "auth_dictionary_type",
+      modelName: "dictionaryType", // 我们需要选择模型名称
+    }
+  );
+
+  // 字典关联类型
+  Dictionary.Type = Dictionary.belongsTo(DictionaryType, {
+    foreignKey: "typeId",
+    as: "type",
+  });
+
   return {
     AppAssoc,
     UserHandle,
     Dictionary,
+    DictionaryType,
   };
 };

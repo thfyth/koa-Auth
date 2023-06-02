@@ -1,7 +1,9 @@
 // const useConfig = useRuntimeConfig();
 
-const BASE_URL = "http://localhost:3000/api/v1";
+import { LocalEnum } from "~/enums";
+import { useStorage } from "@vueuse/core";
 
+const BASE_URL = "http://localhost:3000/api/v1";
 // 请求方法封装
 const fetch = $fetch.create({
   baseURL: BASE_URL,
@@ -9,7 +11,8 @@ const fetch = $fetch.create({
   onRequest({ request, options }) {
     // options.headers
     // 新增认证
-    // const token = useUser()
+    const token = useStorage(LocalEnum.TOKEN, null);
+    // 'Bearer'
     const headers: Headers = new Headers(options.headers);
     headers.set("token", "66666");
   },

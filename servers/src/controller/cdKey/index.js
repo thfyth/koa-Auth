@@ -1,8 +1,7 @@
 const { createToken } = require("../../utils/jwt");
-const { UserCommon, Custom, CdKey, Dictionary } = require("../../model");
+const { UserCommon, CdKey } = require("../../model");
 const { nanoid } = require("nanoid");
 const sequelize = require("../../utils/sql");
-const { createDictionary } = require("../utils");
 module.exports = {
   // 批量生成卡密
   async batchCreateCdKey(ctx) {
@@ -99,46 +98,6 @@ module.exports = {
           where: { id: ids },
         }
       );
-      ctx.body = new global.info.Success(200, "操作成功");
-    } catch (error) {
-      throw new global.info.HttpException(error, null, 10001, 500);
-    }
-  },
-  // 生成卡值
-  async crateCardValue(ctx) {
-    try {
-      const res = createDictionary(ctx);
-      ctx.body = res;
-    } catch (error) {
-      throw new global.info.HttpException(error, null, 10001, 500);
-    }
-  },
-  // 卡值列表
-  async queryCardList() {
-    try {
-      const { pageSize = 10, pageNumber = 1 } = ctx.request.body;
-      const offset = (pageNumber - 1) * pageSize;
-      const { count, rows } = await CdKey.findAndCountAll({
-        where: { status: 1 },
-        offset,
-        limit: pageSize,
-      });
-
-      ctx.body = {
-        count,
-        pageSize,
-        pageNumber,
-        records: rows,
-      };
-    } catch (error) {
-      throw new global.info.HttpException(error, null, 10001, 500);
-    }
-  },
-  // 删除卡值
-  async deleteCdValueById() {
-    try {
-      const { id } = ctx.request.body;
-      await Dictionary.update({ status: 0 }, { where: { id } });
       ctx.body = new global.info.Success(200, "操作成功");
     } catch (error) {
       throw new global.info.HttpException(error, null, 10001, 500);

@@ -41,33 +41,4 @@ module.exports = {
       return error;
     }
   },
-  // 创建字典
-  async createDictionary(ctx) {
-    try {
-      const {
-        type,
-        key,
-        value,
-        append = "",
-        description = "",
-      } = ctx.request.body;
-      if (!type) {
-        throw new global.info.ParameterException(
-          "类型是必传项！",
-          null,
-          10001,
-          500
-        );
-      }
-      return await Dictionary.create({
-        type,
-        key,
-        value,
-        append,
-        description,
-      });
-    } catch (error) {
-      return error;
-    }
-  },
 };

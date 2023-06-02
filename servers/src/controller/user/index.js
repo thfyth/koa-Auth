@@ -51,6 +51,7 @@ module.exports = {
         token,
       };
       delete data.password;
+      delete data.id;
       ctx.body = new global.info.Success(200, data);
     } else ctx.body = new global.info.ParameterException("", res.data);
   },

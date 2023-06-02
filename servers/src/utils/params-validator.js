@@ -54,4 +54,22 @@ module.exports = {
       }
     };
   },
+  /**
+   * 字典注册参数
+   */
+  validDic: function () {
+    return async (ctx, next) => {
+      const schema = Joi.object({
+        label: Joi.string().min(3).max(10),
+        value: [Joi.string(), Joi.number()],
+        typeId: Joi.number(),
+      });
+      try {
+        await schema.validateAsync(ctx.request.body);
+        await next();
+      } catch (err) {
+        ctx.body = new global.info.ParameterException(err.details[0]);
+      }
+    };
+  },
 };

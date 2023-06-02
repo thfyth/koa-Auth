@@ -20,6 +20,15 @@ const sequelize = new Sequelize(
       typeCast: true,
     },
     timezone: "+08:00",
+    define: {
+      hooks: {
+        beforeBulkCreate(instances) {},
+        beforeCreate(instances) {
+          // instances.createUser = "创建人员";
+          // instances.createUserName = "创建人员名称";
+        },
+      },
+    },
   }
 );
 

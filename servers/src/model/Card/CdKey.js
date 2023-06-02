@@ -1,6 +1,6 @@
 module.exports = (
   sequelize,
-  { DataTypes, Model, UserCommon, Custom, CdValue }
+  { DataTypes, Model, UserCommon, Dictionary, Custom }
 ) => {
   class CdKey extends Model {}
   CdKey.init(
@@ -52,15 +52,18 @@ module.exports = (
     foreignKey: "relevancyId",
     as: "common",
   });
-  // // 卡密关联用户
-  // CdKey.belongsTo(Custom, {
-  //   foreignKey: "userId",
-  //   as: "user",
-  // });
-  // // 卡密关联卡值类型
-  // CdKey.belongsTo(CdValue, {
-  //   foreignKey: "valueId",
-  //   as: "value",
-  // });
+  UserCommon.hasOne(CdKey, { foreignKey: "relevancyId" });
+  // 卡密关联字典
+  CdKey.Dict = CdKey.belongsTo(Dictionary, {
+    foreignKey: "dictId",
+    as: "dict",
+  });
+  Dictionary.hasOne(CdKey, { foreignKey: "dictId" });
+  // 卡密和用户相互关联
+  CdKey.User = CdKey.belongsTo(Custom, {
+    foreignKey: "userId",
+    as: "user",
+  });
+  Custom.hasOne(CdKey, { foreignKey: "userId" });
   return CdKey;
 };

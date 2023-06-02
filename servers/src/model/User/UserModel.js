@@ -34,6 +34,12 @@ module.exports = (sequelize, { DataTypes, Model, UserCommon }) => {
         // unique: true,
         comment: "用户邮箱",
       },
+      // 特权模式
+      privilege: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        comment: "特权模式下免认证登陆,不验证是否VIP及到期时间,1-特权,0-非特权",
+      },
       // 拥有权限管理
       authority: {
         type: DataTypes.STRING,
@@ -62,5 +68,6 @@ module.exports = (sequelize, { DataTypes, Model, UserCommon }) => {
     foreignKey: "relevancyId",
     as: "common",
   });
+  UserCommon.hasOne(Custom, { foreignKey: "relevancyId" });
   return Custom;
 };
