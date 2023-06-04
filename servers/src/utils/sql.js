@@ -6,7 +6,9 @@ const {
   DATABASE_PASS_WORD,
   DATABASE_PORT,
 } = require("../../config/config.default");
+const { getUserInfo } = require("../controller/user");
 // 分别传递参数 (其它数据库)
+
 const sequelize = new Sequelize(
   DATABASE_BASE_NAME,
   DATABASE_USER_NAME,
@@ -24,6 +26,7 @@ const sequelize = new Sequelize(
       hooks: {
         beforeBulkCreate(instances) {},
         beforeCreate(instances) {
+          console.log(getUserInfo);
           // instances.createUser = "创建人员";
           // instances.createUserName = "创建人员名称";
         },

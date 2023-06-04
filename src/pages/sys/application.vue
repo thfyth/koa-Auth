@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import { register, userList, getUserInfo } from "@/server/api/user";
-interface custom {
-  userName?: string;
-  email?: string;
-  level?: number;
+interface appInfo {
+  appTitle?: string;
+  appKey?: string;
+  appType?: number;
+  status?: number;
 }
 const selectedProduct = ref([]);
 const filters = ref(null);
-let customs = ref([]);
+let appInfos = ref([]);
 const option = ref([
   {label: '异常',value: 0},
   {label: '正常',value: 1}
@@ -15,38 +16,37 @@ const option = ref([
 const getLabel = (val:number)=> {
   return option.value.filter(v=>v.value === val)[0].label
 } 
-const custom: custom = reactive({});
+const appInfo: appInfo = reactive({});
 // 新增用户
 const openNew = () => {
-  customDialog.value = true;
+  appDialog.value = true;
 };
 //
 const confirmDeleteSelected = () => {};
 const exportCSV = (e: Event) => {};
 const submitted = ref(false);
-const customDialog = ref(false);
+const appDialog = ref(false);
 const hideDialog = () => {
-  customDialog.value = false;
+  appDialog.value = false;
 };
 // 保存用户编辑
-const saveCustomChange = async () => {
-  console.log(custom);
-  const res = await register(custom)
+const saveappInfoChange = async () => {
+  console.log(appInfo);
+  const res = await register(appInfo)
   console.log(res);
   
-  // customDialog.value = false;
+  // appDialog.value = false;
 };
 // 用户等级
-const customLevelOpts = reactive([
-  { label: "管理员", value: 0, class: "one" },
-  { label: "分销用户", value: 1, class: "two" },
-  { label: "普通用户", value: 2, class: "three" },
+const appInfoLevelOpts = reactive([
+  { label: "免费", value: 0, },
+  { label: "收费", value: 1,},
 ]);
 // 接口调用
 onMounted(async () => {
   const res = await userList({});
   if(res.code === 200 && res.data) {
-    customs.value = res.data.records
+    appInfos.value = res.data.records
   }
 });
 </script>
@@ -83,7 +83,7 @@ onMounted(async () => {
     </Toolbar>
     <DataTable
       v-model:selection="selectedProduct"
-      :value="customs"
+      :value="appInfos"
       dataKey="id"
       tableStyle="min-width: 50rem"
     >
@@ -107,57 +107,40 @@ onMounted(async () => {
       </Column>
       <Column field="createdAt" header="创建时间"></Column>
     </DataTable>
-
     <Dialog
-      v-model:visible="customDialog"
+      v-model:visible="appDialog"
       :style="{ width: '450px' }"
-      header="用户 详情"
+      header="APP 信息"
       :modal="true"
       class="p-fluid"
     >
-      <!-- <img
-        v-if="custom.image"
-        :src="`/images/product/${product.image}`"
-        :alt="product.image"
-        width="150"
-        class="mt-0 mx-auto mb-5 block shadow-2"
-      /> -->
       <div class="field">
-        <label for="name">用户名</label>
+        <label for="appTitle">应用名称</label>
         <InputText
-          id="name"
-          v-model.trim="custom.userName"
+          id="appTitle"
+          v-model.trim="appInfo.appTitle"
           required="true"
           autofocus
-          :class="{ 'p-invalid': submitted && !custom.userName }"
-          placeholder="初始密码为auth123456"
+          :class="{ 'p-invalid': submitted && !appInfo.appTitle }"
         />
-        <small v-if="submitted && !custom.userName" class="p-invalid"
-          >userName is required.</small
+        <small v-if="submitted && !appInfo.appTitle" class="p-invalid"
+          >appTitle is required.</small
         >
       </div>
       <div class="field">
-        <label for="email">邮箱</label>
-        <InputText id="email" v-model="custom.email" required="true" />
-        <small v-if="submitted && !custom.email" class="p-invalid"
-          >email is required.</small
-        >
-      </div>
-
-      <div class="field">
-        <label for="level" class="mb-3">用户等级</label>
+        <label for="appType" class="mb-3">app类型</label>
         <ClientOnly>
           <Dropdown
-            id="level"
-            v-model="custom.level"
-            :options="customLevelOpts"
+            id="appType"
+            v-model="appInfo.appType"
+            :options="appInfoLevelOpts"
             option-label="label"
-            placeholder="选择等级"
+            placeholder="选择类型"
           >
             <template #value="slotProps">
               <div v-if="slotProps.value">
                 <span
-                  :class="`product-badge status-${slotProps.value.class}`"
+                  :class="`product-badge`"
                   >{{ slotProps.value.label }}</span
                 >
               </div>
@@ -179,35 +162,10 @@ onMounted(async () => {
           label="Save"
           icon="pi pi-check"
           class="p-button-text"
-          @click="saveCustomChange"
+          @click="saveappInfoChange"
         />
       </template>
     </Dialog>
   </div>
 </template>
 
-<style scoped lang="scss">
-.product-badge {
-  border-radius: 2px;
-  padding: 0.25em 0.5rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.3px;
-
-  &.status-one {
-    background: #c8e6c9;
-    color: #256029;
-  }
-
-  &.status-two {
-    background: #ffcdd2;
-    color: #c63737;
-  }
-
-  &.status-three {
-    background: #feedaf;
-    color: #8a5340;
-  }
-}
-</style>

@@ -16,7 +16,7 @@ module.exports = (sequelize, { DataTypes, Model }) => {
       },
       appKey: {
         type: DataTypes.STRING,
-        comment: "app初始化验证码",
+        comment: "app初始化认证码",
       },
       appType: {
         type: DataTypes.INTEGER,

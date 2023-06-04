@@ -41,6 +41,12 @@ export default defineComponent({
               to: "/sys/cdkey",
             },
           ],
+        },{
+          label: "APP管理",
+          icon: "pi pi-fw pi-sitemap",
+          items: [
+            { label: "APP管理", icon: "pi pi-fw pi-id-card", to: "/sys/application" },
+          ],
         },
       ],
     };

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
+import { useToast } from "primevue/usetoast";
 import { login } from "@/server/api/user";
+import { LocalEnum } from "~/enums";
+import { Token } from "prismjs";
+const toast = useToast();
 definePageMeta({
   layout: "empty",
 });
@@ -25,7 +29,13 @@ const checked = ref(false);
 const logoColor = computed(() => ($appState.darkTheme ? "white" : "dark"));
 const loginFun = async () => {
   const res = await login(userObj);
-  console.log(res);
+  if(res.code == 200) {
+    // await useStorage().setItem(LocalEnum.TOKEN,res.data!.token)
+    const token = await useCookie(LocalEnum.TOKEN)
+    token.value = res.data!.token
+    const router = useRouter();
+    router.replace({ path: "/" });
+  } 
 };
 </script>
 
@@ -33,6 +43,7 @@ const loginFun = async () => {
   <div
     class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
   >
+    <Toast position="top-center" />
     <div class="grid justify-content-center p-2 lg:p-0" style="min-width: 80%">
       <div class="col-12 mt-5 xl:mt-0 text-center">
         <img

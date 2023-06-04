@@ -3,7 +3,19 @@ const { promisify } = require("util");
 const toJwt = promisify(token.sign);
 const verify = promisify(token.verify);
 const key = "auth-key-jwt-web-token";
+ class GetUserToken{
+  static user;
+  constructor(user) {
+    this.user = user
+  }
+  getUser() {
+    return this.user
+  }
+}
 module.exports = {
+  getUserInfo: async()=> {
+    return new GetUserToken().getUser()
+  },
   createToken: async (userinfo) => {
     return await toJwt({ userinfo }, key, {
       expiresIn: 60 * 60 * 24,
@@ -16,6 +28,7 @@ module.exports = {
       if (token) {
         try {
           ctx.user = await verify(token, key);
+          new GetUserToken(ctx.user)
           await next();
         } catch (error) {
           console.log(error);

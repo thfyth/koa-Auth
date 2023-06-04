@@ -72,4 +72,20 @@ module.exports = {
       }
     };
   },
+  // app 注册
+  validApp: function () {
+    return async (ctx, next) => {
+      const schema = Joi.object({
+        appTitle: Joi.string().alphanum().min(2).max(15),
+        appType: Joi.number()
+      })
+      try {
+        await schema.validateAsync(ctx.request.body);
+        await next();
+      } catch (err) {
+        console.log(err);
+        ctx.body = new global.info.ParameterException(err.details[0]);
+      }
+    };
+  },
 };
